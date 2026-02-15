@@ -14,6 +14,7 @@ override.tf.json
 # Ansible
 *.retry
 vault.yml
+!ansible/vault.yml
 **/group_vars/**/*
 **/host_vars/**/*
 secrets.yml
