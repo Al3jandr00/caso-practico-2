@@ -20,4 +20,4 @@ Luego, usando Ansible, despliega esa imagen en una VM Linux con Podman y expone 
 cd terraform
 terraform init
 terraform apply
-
+```
