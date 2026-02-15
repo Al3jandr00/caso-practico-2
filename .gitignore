@@ -1,0 +1,13 @@
+# Terraform
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/.terraform.lock.hcl
+
+# Ansible
+**/*.retry
+
+# Secrets / local
+*.pem
+*.key
+.env
