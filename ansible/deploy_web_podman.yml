@@ -1,0 +1,49 @@
+---
+- name: Deploy web container from ACR with Podman
+  hosts: vm
+  become: true
+  vars:
+    acr_login_server: "acrcp2af2026.azurecr.io"
+    acr_username: "acrcp2af2026"
+    image_name: "web-cp2"
+    image_tag: "1.0"
+    container_name: "web-cp2"
+    host_port: 80
+    container_port: 80
+
+  vars_files:
+    - vault.yml
+
+  tasks:
+    - name: Ensure podman is installed
+      ansible.builtin.apt:
+        name: podman
+        state: present
+        update_cache: true
+
+    - name: Login to ACR (podman)
+      containers.podman.podman_login:
+        registry: "{{ acr_login_server }}"
+        username: "{{ acr_username }}"
+        password: "{{ acr_password }}"
+      no_log: true
+
+    - name: Pull image
+      containers.podman.podman_image:
+        name: "{{ acr_login_server }}/{{ image_name }}"
+        tag: "{{ image_tag }}"
+        pull: true
+
+    - name: Remove existing container if present
+      containers.podman.podman_container:
+        name: "{{ container_name }}"
+        state: absent
+
+    - name: Run container
+      containers.podman.podman_container:
+        name: "{{ container_name }}"
+        image: "{{ acr_login_server }}/{{ image_name }}:{{ image_tag }}"
+        state: started
+        restart_policy: always
+        publish:
+          - "{{ host_port }}:{{ container_port }}"
