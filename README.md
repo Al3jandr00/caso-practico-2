@@ -21,3 +21,22 @@ cd terraform
 terraform init
 terraform apply
 ```
+## 2) Kubernetes (AKS) – despliegue de la imagen en clúster
+
+
+Obtener credenciales:
+```bash
+az aks get-credentials -g rg-casopractico2-af -n aks-cp2-af --overwrite-existing
+```
+
+Ver estado:
+```bash
+kubectl get ns | grep cp2
+kubectl -n cp2 get deploy web-cp2 -o wide
+kubectl -n cp2 get pods -o wide
+kubectl -n cp2 get svc web-cp2-svc -o wide
+```
+Acceso HTTP:
+```bash
+curl -I http://68.221.8.180
+```
