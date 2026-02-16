@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2026-02-16T18:41:21Z"
+  finalizers:
+  - service.kubernetes.io/load-balancer-cleanup
+  labels:
+    app: web-cp2
+  name: web-cp2-svc
+  namespace: cp2
+  resourceVersion: "33132"
+  uid: d2006c31-0640-4532-a548-4918bf4b61c2
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 10.0.146.149
+  clusterIPs:
+  - 10.0.146.149
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 32143
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: web-cp2
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 68.221.8.180
+      ipMode: VIP
