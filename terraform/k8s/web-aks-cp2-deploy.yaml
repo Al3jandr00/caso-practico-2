@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-aks-cp2
+  namespace: cp2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-aks-cp2
+  template:
+    metadata:
+      labels:
+        app: web-aks-cp2
+    spec:
+      containers:
+        - name: web-aks-cp2
+          image: acrcp2af2026.azurecr.io/web-aks-cp2:1.0
+          ports:
+            - containerPort: 80
